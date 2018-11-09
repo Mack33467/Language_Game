@@ -1,7 +1,5 @@
-  Our game is a turn-based game in which each player draws symbols to represent a each letter of a word. It will start with the first player, who will construct the basis for the language by drawing an image and writing the associated word in symbols. The next players will then see which letters have already been designed, as well as the previous player’s image. The next player should guess the word to determine which letters the symbols stand for, and then create a new word using some of the previous symbols as 
-well as new, similarly-styled symbols. The player should also draw an image as a hint. The next player will receive the coded word and the image, and this will continue on a loop until all of 26 letters have been redrawn with symbols. 
-
-  The purpose of this game is to have each team design their alphabet in a Pictionary-styled format. Each player will have to guess 
+	Our game is a turn-based game in which each player draws symbols to represent a each letter of a word. It will start with the first player, who will construct the basis for the language by drawing an image and writing the associated word in symbols. The next players will then see which letters have already been designed, as well as the previous player’s image. The next player should guess the word to determine which letters the symbols stand for, and then create a new word using some of the previous symbols as well as new, similarly-styled symbols. The player should also draw an image as a hint. The next player will receive the coded word and the image, and this will continue on a loop until all of 26 letters have been redrawn with symbols. 
+	The purpose of this game is to have each team design their alphabet in a Pictionary-styled format. Each player will have to guess 
 how the previous player’s image adds to the language and build off of that until the alphabet has been completely constructed.
 
 
