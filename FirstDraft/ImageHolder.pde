@@ -3,7 +3,7 @@ public class ImageHolder {
   ArrayList<PImage> symbols;
   ArrayList<PImage> words;
   
-  ImageHolder() {
+  public ImageHolder() {
   
   }
   
