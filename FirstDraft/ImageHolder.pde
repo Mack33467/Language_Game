@@ -1,7 +1,7 @@
-class ImageHolder {
-  PImage[] drawings;
-  PImage[] symbols;
-  PImage[] words;
+public class ImageHolder {
+  ArrayList<PImage> drawings;
+  ArrayList<PImage> symbols;
+  ArrayList<PImage> words;
   
   ImageHolder() {
   
@@ -9,20 +9,21 @@ class ImageHolder {
   
   
   // Getters
-  PImage[] getDrawings() {
+  ArrayList<PImage> getDrawings() {
     return this.drawings;
-  }
-  
-  PImage[] getSymbols() {
+  }  
+  ArrayList<PImage> getSymbols() {
     return this.symbols;
   }
   
   // Update
-  void update(PImage[] newDrawings) {
-    if (newDrawings.length == 2) {
-        // append to end of current drawings array?
+  void update(ArrayList<PImage> newDrawings) {
+    if (newDrawings.size() == 2) {
+      this.drawings.addAll(newDrawings);
     } else {
-      // Show error
+      // TODO: Show error to user in separate window
+      System.out.println("Only 2 new drawings can be added at a time, you "
+        + "attempted to add " + newDrawings.size() + ".");
     }
   }
 }
