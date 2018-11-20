@@ -99,44 +99,37 @@ void setupAudio(String filename) {
 void draw() {
   switch(curPage) {
   case WELCOME_PAGE :
-    if ((mouseX >= INSTR_TXT_X) && (mouseX <= INSTR_TXT_X + 100 /*width of instr txt*/)
+    if ((mouseX >= INSTR_TXT_X) && (mouseX <= INSTR_TXT_X + 175 /*width of instr txt*/)
       && (mouseY >= ALLOPT_TXT_Y - 10) && (mouseY <= ALLOPT_TXT_Y + 30)) {
       fill(palette[3]);
       text("Instructions", INSTR_TXT_X, ALLOPT_TXT_Y);
       if (mousePressed) {
         instructions(); 
       }
-    } else if ((mouseX >= PLAY_TXT_X) && (mouseX <= PLAY_TXT_X + 25)
+    } else if ((mouseX >= PLAY_TXT_X) && (mouseX <= PLAY_TXT_X + 65)
       && (mouseY >= ALLOPT_TXT_Y - 10) && (mouseY <= ALLOPT_TXT_Y + 30)) {
       fill(palette[3]);
       text("Play", PLAY_TXT_X, ALLOPT_TXT_Y); 
       if (mousePressed) {
         play();
       }
-    } else if ((mouseX >= CREDITS_TXT_X) && (mouseX <= CREDITS_TXT_X + 30)
+    } else if ((mouseX >= CREDITS_TXT_X) && (mouseX <= CREDITS_TXT_X + 125)
       && (mouseY >= ALLOPT_TXT_Y - 10) && (mouseY <= ALLOPT_TXT_Y + 30)) {
       fill(palette[3]);
       text("Credits", CREDITS_TXT_X, ALLOPT_TXT_Y);
       if (mousePressed) {
         credits();
       }
-    } else if ((mouseX <= INSTR_TXT_X) && (mouseX >= INSTR_TXT_X + 70)) {
+    } else if ((mouseX <= INSTR_TXT_X) && (mouseX >= INSTR_TXT_X + 175)) {
       welcomePage();
-    } //else if ((mouseX <= PLAY_TXT_X) && (mouseX >= PLAY_TXT_X + 25)) {
-    //  fill(palette[2]);
-    //  text("Play", PLAY_TXT_X, ALLOPT_TXT_Y);
-    //} else if ((mouseX <= CREDITS_TXT_X) && (mouseX >= CREDITS_TXT_X + 30)) {
-    //  fill(palette[2]);
-    //  text("Credits", CREDITS_TXT_X, ALLOPT_TXT_Y);
-    //} else {
-    //  fill(palette[3]);
-    //  text("Instructions", INSTR_TXT_X, ALLOPT_TXT_Y);
-    //  fill(palette[3]);
-    //  text("Play", PLAY_TXT_X, ALLOPT_TXT_Y); 
-    //  fill(palette[2]);
-    //  text("Credits", CREDITS_TXT_X, ALLOPT_TXT_Y);
+    } else if ((mouseX <= PLAY_TXT_X) && (mouseX >= PLAY_TXT_X + 65)) {
+      welcomePage();
+    } else if ((mouseX <= CREDITS_TXT_X) && (mouseX >= CREDITS_TXT_X + 120)) {
+      welcomePage();
+    } else {
+      welcomePage();
 
-    //}
+    }
     break;
   case INSTRUCTIONS : 
     break;
@@ -149,6 +142,8 @@ void draw() {
 
 void welcomePage() {
   removeButtons();
+  
+  background(palette[0]);
   
   curPage = Pages.WELCOME_PAGE;
   pageBg = loadImage("gameBg.png");
