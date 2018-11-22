@@ -51,6 +51,7 @@ final int ALLOPT_TXT_Y = 375;
 PImage prevImage;  // Previous Player's Image
 PImage curImage;   // Current Player's Image
 ImageHolder imgHolderAll; // Holds all game data
+Timer timer;
 
 
 PImage pageBg; // Background image for welcome, instructions, and credits pages
@@ -75,11 +76,8 @@ void setup() {
     curImage.pixels[i] = palette[3];
   }
   curImage.updatePixels();
-  //curImage = createGraphics(displayWidth/2 - 20, displayHeight - 200);
-  //curImage.beginDraw();
-  //curImage.background(palette[3]);
-  
-  // Display the Welcome Page
+
+  timer = new Timer(30.f);
   welcomePage();
   
   
@@ -164,49 +162,69 @@ void draw() {
   case CREDITS :
     break;
   case PLAY:
-    if ((mouseX >= displayWidth/2) && (mouseX <= displayWidth - 10) 
-      && (mouseY >= 100) && (mouseY <= displayHeight - 100)) {
-      cursor(CROSS);
-      if (mousePressed) {
+    noStroke();
+    fill(palette[0]);
+    rect(displayWidth - 100, 0, displayWidth, 60);
+    //background(palette[0]);
+    fill(palette[3]);
+    text(timer.getTime(), displayWidth - 100, 30);
+    if (timer.getTime() >= 0.f) {
+      timer.countDown();
+      if ((mouseX >= displayWidth/2) && (mouseX <= displayWidth - 10) 
+        && (mouseY >= 100) && (mouseY <= displayHeight - 100)) {
+        cursor(CROSS);
+        if (mousePressed) {
 
-        curImage.loadPixels();
-        int maxX = 0;
-        int minX = 0;
-        int maxY = 0;
-        int minY = 0;
-        if (mouseX < pmouseX) {
-          maxX = pmouseX;
-          minX = mouseX;
-        }
-        if (mouseX >= pmouseX) {
-          maxX = mouseX;
-          minX = pmouseX;
-        }
-        if (mouseY < pmouseY) {
-          maxY = pmouseY;
-          minY = mouseY;
-        }
-        if (mouseY >= pmouseY) {
-          maxY = mouseY;
-          minY = pmouseY;
-        }
-        
-        for (int x = minX; x <= maxX; x++) {
-          for(int y = minY; y <= maxY; y++) {
-            // Pixel offset to determine which index of the image's pixel array the cursor is pointing to --> y * width + x
-            int pixel = (((y - 100) * (displayWidth/2 - 20) + (x - displayWidth/2))) % (curImage.pixels.length);
-            if (pixel < 0)
-              pixel *= -1;
-            curImage.pixels[pixel] = palette[1];
+          curImage.loadPixels();
+          int maxX = 0;
+          int minX = 0;
+          int maxY = 0;
+          int minY = 0;
+          if (mouseX < pmouseX) {
+            maxX = pmouseX;
+            minX = mouseX;
           }
+          if (mouseX >= pmouseX) {
+            maxX = mouseX;
+            minX = pmouseX;
+          }
+          if (mouseY < pmouseY) {
+            maxY = pmouseY;
+            minY = mouseY;
+          }
+          if (mouseY >= pmouseY) {
+            maxY = mouseY;
+            minY = pmouseY;
+          }
+        
+          for (int x = minX; x <= maxX; x++) {
+            for(int y = minY; y <= maxY; y++) {
+              // Pixel offset to determine which index of the image's pixel array the cursor is pointing to --> y * width + x
+              int pixel = (((y - 100) * (displayWidth/2 - 20) + (x - displayWidth/2))) % (curImage.pixels.length);
+              if (pixel < 0)
+                pixel *= -1;
+              curImage.pixels[pixel] = palette[1];
+            }
+          }
+          curImage.updatePixels();
+          image(curImage, displayWidth/2, 100);
         }
-        curImage.updatePixels();
-        image(curImage, displayWidth/2, 100);
+      } else {
+        cursor(ARROW);
       }
+      break;
     } else {
-      cursor(ARROW);
+      fill(palette[0]);
+      rect(displayWidth - 100, 0, displayWidth, 60);
+      fill(palette[3]);
+      text("0.00", displayWidth - 100, 30);
+     
+      fill(palette[0]);
+      textSize(50);
+      text("TIME'S UP!", displayWidth/2 + 250, 400);
+      // Debugging, change when next turn function is implemented
+      noLoop();
     }
-    break;
   }
 }
 
