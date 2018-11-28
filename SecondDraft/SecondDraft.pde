@@ -13,8 +13,17 @@ BiquadFilter filter;
 GUIController c;
 //---Buttons
 IFButton returnToWelcome;
+IFButton createSymbol;
+IFButton viewSymbols;
 //---Button Look and Feel (Button Color Scheme)
 IFLookAndFeel buttonLAF;
+IFLookAndFeel letterSelectionLAF;
+//---Radio Controller and Buttons (Player selects letter of alphabet)
+IFRadioController rc;
+IFRadioButton rA, rB, rC, rD, rE, rF, rG, rH, rI, rJ, rK, rL, rM, rN, rO, rP, 
+  rQ, rR, rS, rT, rU, rV, rW, rX, rY, rZ;
+IFRadioButton[] letters = {rA, rB, rC, rD, rE, rF, rG, rH, rI, rJ, rK, rL, rM, rN, rO, rP, 
+  rQ, rR, rS, rT, rU, rV, rW, rX, rY, rZ};
 
 
 // Color Palette
@@ -61,14 +70,15 @@ void setup() {
   size(displayWidth, displayHeight);
   c = new GUIController(this);
   setupButtonLAF();
-  
+  setupLetterSelectionLAF();
+
   prevImage = createImage(displayWidth/2 - 20, displayHeight - 200, RGB);
   prevImage.loadPixels();
   for (int i = 0; i < prevImage.pixels.length; i++) {
     prevImage.pixels[i] = palette[2];
   }
   prevImage.updatePixels();
-  
+
   curImage = createImage(displayWidth/2 - 20, displayHeight - 200, RGB);
   curImage.loadPixels();
   for (int i = 0; i < curImage.pixels.length; i++) {
@@ -78,13 +88,13 @@ void setup() {
   //curImage = createGraphics(displayWidth/2 - 20, displayHeight - 200);
   //curImage.beginDraw();
   //curImage.background(palette[3]);
-  
+
   // Display the Welcome Page
   welcomePage();
-  
-  
-  
-  
+
+
+
+
 
   // TODO: Load in more mysterious, eerie music? -- Match with the aesthetic of the arcane artwork
   // or more quirky, upbeat music (maybe play this during just the game?)
@@ -132,7 +142,7 @@ void draw() {
       fill(palette[3]);
       text("Instructions", INSTR_TXT_X, ALLOPT_TXT_Y);
       if (mousePressed) {
-        instructions(); 
+        instructions();
       }
     } else if ((mouseX >= PLAY_TXT_X) && (mouseX <= PLAY_TXT_X + 65)
       && (mouseY >= ALLOPT_TXT_Y - 10) && (mouseY <= ALLOPT_TXT_Y + 30)) {
@@ -156,7 +166,6 @@ void draw() {
       welcomePage();
     } else {
       welcomePage();
-
     }
     break;
   case INSTRUCTIONS : 
@@ -190,9 +199,9 @@ void draw() {
           maxY = mouseY;
           minY = pmouseY;
         }
-        
+
         for (int x = minX; x <= maxX; x++) {
-          for(int y = minY; y <= maxY; y++) {
+          for (int y = minY; y <= maxY; y++) {
             // Pixel offset to determine which index of the image's pixel array the cursor is pointing to --> y * width + x
             int pixel = (((y - 100) * (displayWidth/2 - 20) + (x - displayWidth/2))) % (curImage.pixels.length);
             if (pixel < 0)
@@ -212,9 +221,9 @@ void draw() {
 
 void welcomePage() {
   removeButtons();
-  
+
   background(palette[0]);
-  
+
   curPage = Pages.WELCOME_PAGE;
   pageBg = loadImage("gameBg.png");
   image(pageBg, 0, 0, displayWidth, displayHeight);
@@ -234,27 +243,27 @@ void welcomePage() {
 }
 
 void instructions() {
-  
+
   curPage = Pages.INSTRUCTIONS;
   background(palette[0]);
   pageBg = loadImage("gameBg.png");
   image(pageBg, 0, 0, displayWidth, displayHeight);
-  
+
   textSize(50);
   fill(palette[2]);
   text("Instructions", displayWidth/2 - 100, 100);
   textSize(50);
   fill(palette[1]);
   text("Instructions", displayWidth/2 - 100, 100);
-  
+
   fill(palette[0]);
   noStroke();
   rect(75, 150, displayWidth - 75, displayHeight - 300);
-  
+
   returnToWelcome = new IFButton("Return", displayWidth - 125, displayHeight - 100);
   returnToWelcome.setLookAndFeel(buttonLAF);
   returnToWelcome.addActionListener(this);
-  
+
   c.add(returnToWelcome);
 }
 
@@ -263,14 +272,14 @@ void credits() {
   background(palette[0]);
   pageBg = loadImage("gameBg.png");
   image(pageBg, 0, 0, displayWidth, displayHeight);
-  
+
   //textSize(50);
   //fill(palette[2]);
   //text("Credits", displayWidth/2 - 100, 100);
   //textSize(50);
   //fill(palette[1]);
   //text("Credits", displayWidth/2 - 100, 100);
-  
+
   fill(palette[0]);
   noStroke();
   rect(75, 150, displayWidth - 150, displayHeight - 300);
@@ -286,11 +295,11 @@ void credits() {
   text("www.obsidiandawn.com", 500, 355);
   text("You Can Always Come Home by Toby Fox", 500, 450);
   text("Deltarune Original Soundtrack", 500, 480);
-  
+
   returnToWelcome = new IFButton("Return", displayWidth - 125, displayHeight - 100);
   returnToWelcome.setLookAndFeel(buttonLAF);
   returnToWelcome.addActionListener(this);
-  
+
   c.add(returnToWelcome);
 }
 
@@ -299,12 +308,24 @@ void play() {
   background(palette[0]);
   image(prevImage, 10, 100);
   image(curImage, displayWidth/2, 100);
-  
+
+  // Return to welcome screen button
   returnToWelcome = new IFButton("Return", displayWidth - 125, displayHeight - 80);
   returnToWelcome.setLookAndFeel(buttonLAF);
   returnToWelcome.addActionListener(this);
-  
   c.add(returnToWelcome);
+
+  // Add symbol button
+  createSymbol = new IFButton("Add Symbol", displayWidth/2 + 25, 125);
+  createSymbol.setLookAndFeel(buttonLAF);
+  createSymbol.addActionListener(this);
+  c.add(createSymbol);
+
+  // View symbol database button
+  viewSymbols = new IFButton("View Symbols", displayWidth-150, 125);
+  viewSymbols.setLookAndFeel(buttonLAF);
+  viewSymbols.addActionListener(this);
+  c.add(viewSymbols);
 }
 
 void startNew() {
@@ -337,19 +358,67 @@ void startNew() {
   //c.add(returnToWelcome);
 }
 
+void createSymbolScreen() {
+  removeButtons();
+  background(palette[0]);
+  //pageBg = loadImage("gameBg.png");
+  //image(pageBg, 0, 0, displayWidth, displayHeight);
+  text("Create Symbol", displayWidth/2 - 50, 150);
+  text("Select Letter", displayWidth/4-50, 350);
+  text("Draw Symbol", displayWidth/4*3-50, 350);
+  noFill();
+  strokeWeight(4);
+  stroke(255);
+  rect(displayWidth/2+150, 400, 725, 500);
+  loadLetterSelector();
+}
+
+void loadLetterSelector() {
+  rc = new IFRadioController("");
+  char curChar = 'A';
+  int xLoc = 50;
+  int yLoc = 400;
+  for (IFRadioButton r : letters) {
+    r = new IFRadioButton(curChar + "", xLoc, yLoc, rc);
+    r.setLookAndFeel(letterSelectionLAF);
+    r.addActionListener(this);
+    c.add(r);
+    curChar++;
+    xLoc += 40;
+  }
+}
+
+void viewSymbolsScreen() {
+}
+
 void selectSaved() {
   //removeButtons();
 }
 
 void removeButtons() {
-  if (returnToWelcome != null)
-  c.remove(returnToWelcome);
+  if (returnToWelcome != null) {
+    c.remove(returnToWelcome);
+  }
+  if (curPage == Pages.PLAY) {
+    if (createSymbol != null) {
+      c.remove(createSymbol);
+    }
+    if (viewSymbols != null) {
+      c.remove(viewSymbols);
+    }
+  }
 }
 
 void setupButtonLAF() {
   buttonLAF = new IFLookAndFeel(this, IFLookAndFeel.DEFAULT);
   buttonLAF.baseColor = palette[1];
   buttonLAF.textColor =  palette[0];
+}
+
+void setupLetterSelectionLAF() {
+  letterSelectionLAF = new IFLookAndFeel(this, IFLookAndFeel.DEFAULT);
+  letterSelectionLAF.baseColor = palette[0];
+  letterSelectionLAF.textColor = 255;
 }
 
 void actionPerformed (GUIEvent e) {
@@ -361,5 +430,15 @@ void actionPerformed (GUIEvent e) {
       newImage.save("outputImage.jpg");
     }
     welcomePage();
+  }
+
+  // If add symbol button is pressed
+  if (e.getSource() == createSymbol) {
+    createSymbolScreen();
+  }
+
+  // If view symbols button is pressed
+  if (e.getSource() == viewSymbols) {
+    viewSymbolsScreen();
   }
 }
