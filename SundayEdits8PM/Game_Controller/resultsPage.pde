@@ -7,6 +7,7 @@ class resultsPage extends gameState {
   //Results Page Specifics
   int pageNumber;
   HashMap<String, ArrayList<ImageHolder>> images;
+  ArrayList<Player> players;
   Boolean isLastPage;
   
   resultsPage(paletteControls p) {
@@ -108,9 +109,10 @@ class resultsPage extends gameState {
     while (c <= last) {
       for (ImageHolder img : images.get(c)) {
         image(img.getSymbol(), (width/11*posX)-(imgSize/2), posY);
-        posX++;
         posY += imgSize;
       }
+      posX++;
+      posY = height/6*2;
       c++;
     }
   }
@@ -119,6 +121,20 @@ class resultsPage extends gameState {
    * Displays results pages by player
    */
   void showByPlayer() {
+    int xInterval = width/(players.size()+1);
+    int xPos = 1;
+    int yPos = height/6;
+    float imgSize = width/(players.size()+1.2);
+    for (Player p : players) {
+      text("Player " + xPos, (width/xInterval*xPos) - (textWidth("Player " + xPos)/2), yPos);
+      yPos = height/6*2;
+      for (PImage img : p.getSymbols()) {
+        image(img, xPos-(imgSize/2), yPos);
+        yPos += imgSize;
+      }
+      xPos++;
+      yPos = height/6*2;
+    }
   }
   
   GUIController clearScreen(GUIController c) {
