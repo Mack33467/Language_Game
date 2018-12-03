@@ -67,6 +67,7 @@ GUIController c;
 IFButton returnToWelcome;
 IFButton createSymbol;
 IFButton viewSymbols;
+ArrayList<IFButton> createALetterButtons;
 
 //The control scheme controller
 paletteControls palette;
@@ -85,7 +86,10 @@ String nextGameState;
 Boolean waitForExterior;
 
 //Player Manager ToDO Set Up PlayerManager
-PlayerManager manager;
+PlayerManager p_manager;
+resultsManager r_manager;
+
+String currLetter;
 void setup(){
   //Setting up size and GUI
   size(displayWidth, displayHeight);
@@ -99,6 +103,10 @@ void setup(){
   //Putting all the screens in a hashmap
   screens = new HashMap();
   setScreens(palette, screens);
+ 
+  
+  //Initializing buttons
+  createALetterButtons = new ArrayList();
   
   //Setting flag for draw
   waitForExterior = false;
@@ -157,12 +165,13 @@ void removeButtons(GUIController c, gameState g) {
     }
   }
   
-  if (g.page == "CAL" || g.page == "VS") {
-    if (createSymbol != null) {
-      c.remove(createSymbol);
-    }
-    if (viewSymbols != null) {
-      c.remove(viewSymbols);
+  if (g.page == "CAL") {
+    println("removing CAL buttons");
+    int i = 0;
+    for(IFButton b: createALetterButtons){
+      println("Deleting button number: " + i);
+      c.remove(b);
+      i++;
     }
   }
   g.buttonsOn = false;
@@ -194,6 +203,10 @@ void setUpButtons(String p) {
       currentScreen.setButtonsNeedOff();
       break;
     case "TURN":
+      if (createALetterButtons.size() != 0 && createALetterButtons.get(0) != null){
+        println("Trying to remove the damn impossible");
+        c.remove((IFButton)createALetterButtons.get(0));
+      }
       createSymbol = new IFButton("Add Symbol", displayWidth/2 + 25, 125);
       createSymbol.setLookAndFeel(palette.buttonLAF);
       createSymbol.addActionListener(this);
@@ -205,9 +218,12 @@ void setUpButtons(String p) {
       c.add(viewSymbols);
       break;
     case "CAL":
-      currentScreen.setCurrentPlayer(manager.getCurrentPlayer());
+      //currentScreen.setCurrentPlayer(manager.getCurrentPlayer());
+      println("Setting up CAL buttons: " + currentScreen.page);
       c = currentScreen.setUpButtons(c, this);
-      removeButtons(c, currentScreen);
+      break;
+    case "RES":
+      c = currentScreen.setUpButtons(c,this);
     }
      currentScreen.setButtonsNeedOff();
 }
@@ -233,13 +249,29 @@ void actionPerformed (GUIEvent e) {
     println(letterCreation.page);
     cursor(ARROW);
     waitForExterior = true;
+    removeButtons(c, currentScreen);
     setNextScreen("CAL");
   }
 
   // If view symbols button is pressed
   if (e.getSource() == viewSymbols) {
     waitForExterior = true;
+    removeButtons(c,currentScreen);
     setNextScreen("VS");
+  }
+  
+  if (createALetterButtons.contains(e.getSource())) {
+   int i = 0;
+   while(createALetterButtons.get(i) != e.getSource()){
+     i++;
+   }
+   if (i == 0){
+     waitForExterior = true;
+     removeButtons(c, currentScreen);
+     setNextScreen("TURN");
+   } else if (i > 1) {
+     currLetter = "" + (char) (64 + i);
+   }
   }
 }
 
@@ -260,6 +292,9 @@ void setScreens(paletteControls palette, HashMap screens){
   screens.put(instr.page, instr);
   credits = new creditScreen(palette);
   screens.put(credits.page, credits);
+  //Setting up resultsManager
+  r_manager = new resultsManager(palette);
+  screens.put(r_manager.page, r_manager);
 }
 
 

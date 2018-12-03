@@ -92,11 +92,11 @@ class createALetterScreen extends gameState {
   }
 
   GUIController setUpButtons(GUIController c, PApplet p) {
-    println("Setting up CAL's buttons");
     backToGame = new IFButton("Back to Game", int(width/1.1255)- 10,35);//int(width/1.1255), int(height/1.102));
     backToGame.setLookAndFeel(buttonLAF);
     backToGame.addActionListener(p);
     c.add(backToGame);
+    createALetterButtons.add(backToGame);
     char curChar = 'A';
     int initX = width/10;
     int initY = height/7*3;
@@ -112,8 +112,13 @@ class createALetterScreen extends gameState {
         xLoc = initX;
         yLoc += height/27;
       }
+      createALetterButtons.add(b);
       curChar++;
     }
+    IFButton b = new IFButton("", width* 2, height *2);
+    b.addActionListener(p);
+    c.add(b);
+    createALetterButtons.add(b);
     return c;
   }
 

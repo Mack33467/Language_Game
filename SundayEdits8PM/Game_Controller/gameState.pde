@@ -22,7 +22,7 @@ abstract class gameState {
   String getPage(){return page;}
   
   void setOpCode(int opCode){};
-  int getOpCode(){return opCode;}
+  int getOPCode(){return opCode;}
   
   void setCurrentPlayer(Player p){};
 }

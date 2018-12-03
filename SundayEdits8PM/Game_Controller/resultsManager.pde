@@ -23,11 +23,13 @@ class resultsManager extends gameState {
     playerSpecifics = new HashMap();
     gallery = new ArrayList();
     firstTenLetters = new resultsPage(p, 1);
-    firstTenLetters.setOpCode(1);
-    secondTenLetters = new resultsPage(p, 1);
-    secondTenLetters.setOpCode(2);
-    lastSixLetters = new resultsPage(p, 2);
-    lastSixLetters.setOpCode(3);
+    println("Setting firstTen's OPCODE");
+    firstTenLetters.setOPCode(1);
+    println(firstTenLetters.opCode);
+    secondTenLetters = new resultsPage(p, 2);
+    secondTenLetters.setOPCode(2);
+    lastSixLetters = new resultsPage(p, 3);
+    lastSixLetters.setOPCode(3);
     numPages = 3;
     currPage = firstTenLetters;
     lastPage = lastSixLetters;
@@ -40,7 +42,7 @@ class resultsManager extends gameState {
   void setUpPlayerPages(ArrayList<Player> p) {
     for (Player person: p) {
       resultsPage temp = new resultsPage(palette, numPages);
-      temp.setOpCode(4);
+      temp.setOPCode(4);
       playerSpecifics.put(person, temp );
       numPages += 1;
       lastPage.isLastPage = false;
@@ -64,4 +66,10 @@ class resultsManager extends gameState {
       }
     }
   }
+  
+  GUIController setUpButtons(GUIController c, PApplet p){
+    return currPage.setUpButtons(c, p);
+  }
+  Boolean needsButtons(){ return true;}
+  
 }
