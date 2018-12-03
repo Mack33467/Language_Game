@@ -2,6 +2,7 @@ class resultsPage extends gameState {
   PImage pageBg; // Background image for welcome, instructions, and credits pages
   int[] palette;
   IFLookAndFeel buttonLAF;
+  IFButton prev, next;
   
   //Results Page Specifics
   int pageNumber;
@@ -30,16 +31,40 @@ class resultsPage extends gameState {
     switch (opCode) {
       case 1:
         //We display a previous button and next button
+        prev = new IFButton("Previous Page", width/20, int(height/1.102));
+        next = new IFButton("Next Page", width/20*19 - int(textWidth("Next Page")), int(height/1.102));
+        prev.setLookAndFeel(buttonLAF);
+        next.setLookAndFeel(buttonLAF);
+        prev.addActionListener(this);
+        next.addActionListener(this);
+        c.add(prev);
+        c.add(next);
         //The previous button leads to the last currPage
         break;
       case 2:
         //We display a previous and next button
+        prev = new IFButton("Previous Page", width/20, int(height/1.102));
+        next = new IFButton("Next Page", width/20*19 - int(textWidth("Next Page")), int(height/1.102));
+        prev.setLookAndFeel(buttonLAF);
+        next.setLookAndFeel(buttonLAF);
+        prev.addActionListener(this);
+        next.addActionListener(this);
+        c.add(prev);
+        c.add(next);
         break;
       case 3:
         //Same as case 2
         break;
       case 4: 
         //We display a previous and next button
+        prev = new IFButton("Previous Page", width/20, int(height/1.102));
+        next = new IFButton("Next Page", width/20*19 - int(textWidth("Next Page")), int(height/1.102));
+        prev.setLookAndFeel(buttonLAF);
+        next.setLookAndFeel(buttonLAF);
+        prev.addActionListener(this);
+        next.addActionListener(this);
+        c.add(prev);
+        c.add(next);
         //Next button leads to the first image
         break;
     }
