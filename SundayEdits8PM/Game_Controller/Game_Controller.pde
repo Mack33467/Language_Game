@@ -2,19 +2,34 @@
 * =============================================================================
 *                           IMPORTANT STUFF UP HERE
 * =============================================================================
-*  This is direct translation from Kate's second draft. No game features have
-*  been added in this iteration. Instead the code has been refactored in such
-*  a way that the code can be organized by gameStates. Every display screen
-*  is a subclass of gameState, so I recommend you start by checking that out.
-*  I haven't fiddled with any of the UI or anything, if you want to edit that
-*  go into the necessary screen and change the display function
+* Muy Muy Importante this go around. Currently as it stands most parts of the code
+* are actually done. Here are the things currently missing:
+* 1) The select players screen, which Kate already wrote in Third Draft. It just needs
+*    to be translated. After reading the int, the PlayerManager p_manager should be instantiated
 *
-*  Note that the display function is split into drawn and not drawn
-*  not drawn is reserved for initially drawing a class or reupdating in the case
-*  of turn switching
+* 2) The save turn picture functionality. There's a lot of supporting code for saving that 
+*     exists in the Player class. There's already a save letter feature that works in the player class and is used by
+*     p_manager
 *
-*  I'm currently working on other game elements like inageHolder and timer and players
-*  if you have any suggestions or done any work on those classes please lmk ASAP
+* 3) Displaying results. There's a template for the page already done, but the picures need to be displayed using the
+*    exportPlayers function in PlayerManager and an unwritten exportAllSymbols function. This should provide all the imageHolders
+*    necessary for printing a results page.
+*
+* 4) Making the setting up and removing buttons for the resultsPages. Be careful here interfascia is wacky af. If you use this in
+*    a subclass then the button won't do anything. You have to write a setUpButtons method that passes a PApplet into subclasses to 
+*    effectively set up listeners  i.e. setUpButtons(GUIController c, PApplet p) which would allow you to call it from Game_Controller as
+*    setUpButtons(c, this)
+*
+* 5) Any additional buttons that you find need to be set up along the way. Optionally adding a way to see the letters you've drawn per session
+*    of entering createALetterScreen. Definitely a way to see symbols on the turnScreen.
+*
+* 6) A view sybomls screen implementation
+*
+*
+*
+*
+*
+*
 */
 
 import org.jaudiolibs.beads.*;
@@ -274,7 +289,7 @@ void actionPerformed (GUIEvent e) {
      println(currLetter);
    } else if (i == 27) {
      println("Saved");
-     //p_manager.getCurrentPlayer().submitDataSymbol(currLetter, letterCreation.canvas);
+     p_manager.getCurrentPlayer().submitDataSymbol(currLetter, letterCreation.canvas); //If pmanager isn't instatiated this will stop your code from running when you click finished drawing
      letterCreation.clearCanvas();
      setNextScreen("CAL");
    }

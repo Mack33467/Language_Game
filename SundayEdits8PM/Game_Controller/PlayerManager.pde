@@ -51,15 +51,20 @@ class PlayerManager {
         allSymbols.get(letter).add(playerHolder);
       }
     }
-    
-    ////Incrementing the current player by one
-    //if (Integer.parseInt(currentPlayer) == numPlayers){
-    //  currentPlayer = "1";
-    //} else {
-    //  currentPlayer ="" + (char) (Integer.parseInt(currentPlayer) + 49);
-    //}
   }
   
+  void endTurn() {
+    //Implement turn end code here
+    
+    
+    
+    //Incrementing the current player by one
+    if (Integer.parseInt(currentPlayer) == numPlayers){
+      currentPlayer = "1";
+    } else {
+      currentPlayer ="" + (char) (Integer.parseInt(currentPlayer) + 49);
+    }
+  }
   
   ArrayList<Player> exportPlayers(){
   return new ArrayList<Player>(players.values());

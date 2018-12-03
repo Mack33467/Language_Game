@@ -27,6 +27,7 @@ class turnScreen extends gameState {
 
   String display(GUIController c) {
     if (drawn) {
+      background(palette[0]);
       if ((mouseX >= displayWidth/2) && (mouseX <= displayWidth - 10) 
         && (mouseY >= 100) && (mouseY <= displayHeight - 100)) {
         cursor(CROSS);
