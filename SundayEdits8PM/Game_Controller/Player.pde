@@ -41,6 +41,15 @@ public class Player {
     lastLetterDrawn = letter;
   }
   
+  void submitDataSymbol(String letter, PImage symbol) {
+    this.contrData.put(letter, new ImageHolder(createImage(0,0,0), symbol));
+    lastLetterDrawn = letter;
+  }
+  
+  void submitDataDrawing(PImage drawing) {
+    this.contrData.put(lastLetterDrawn, new ImageHolder(drawing, createImage(0,0,0)));
+  }
+  
   void incrCurIndex() {
     this.curIndex++;
   }

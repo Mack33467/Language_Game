@@ -88,7 +88,6 @@ Boolean waitForExterior;
 //Player Manager ToDO Set Up PlayerManager
 PlayerManager p_manager;
 resultsManager r_manager;
-
 String currLetter;
 void setup(){
   //Setting up size and GUI
@@ -265,12 +264,19 @@ void actionPerformed (GUIEvent e) {
    while(createALetterButtons.get(i) != e.getSource()){
      i++;
    }
+   println("This is i: " + i);
    if (i == 0){
      waitForExterior = true;
      removeButtons(c, currentScreen);
      setNextScreen("TURN");
-   } else if (i > 1) {
+   } else if (i > 1 && i < 27) {
      currLetter = "" + (char) (64 + i);
+     println(currLetter);
+   } else if (i == 27) {
+     println("Saved");
+     //p_manager.getCurrentPlayer().submitDataSymbol(currLetter, letterCreation.canvas);
+     letterCreation.clearCanvas();
+     setNextScreen("CAL");
    }
   }
 }

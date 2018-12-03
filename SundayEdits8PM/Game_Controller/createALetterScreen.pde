@@ -33,6 +33,7 @@ class createALetterScreen extends gameState {
 
   String display(GUIController c) {
     if (drawn){
+      println("Looping CAL");
       if ((mouseX > width/1.78) && (mouseX <= width/1.78 + width/2.648) 
         && (mouseY > height/2.7) && (mouseY <= height/2.7 + height/2.16)) {
         cursor(CROSS);
@@ -92,7 +93,7 @@ class createALetterScreen extends gameState {
   }
 
   GUIController setUpButtons(GUIController c, PApplet p) {
-    backToGame = new IFButton("Back to Game", int(width/1.1255)- 10,35);//int(width/1.1255), int(height/1.102));
+    backToGame = new IFButton("Back to Game", displayWidth-150,35);//int(width/1.1255), int(height/1.102));
     backToGame.setLookAndFeel(buttonLAF);
     backToGame.addActionListener(p);
     c.add(backToGame);
@@ -115,10 +116,15 @@ class createALetterScreen extends gameState {
       createALetterButtons.add(b);
       curChar++;
     }
-    IFButton b = new IFButton("", width* 2, height *2);
-    b.addActionListener(p);
-    c.add(b);
-    createALetterButtons.add(b);
+    IFButton button27 = new IFButton ("Finished Drawing", width/2 - backToGame.getWidth()/2, height/6 + height/8);
+    button27.addActionListener(p);
+    c.add(button27);
+    createALetterButtons.add(button27);
+    
+    IFButton blank = new IFButton("", width* 2, height *2);
+    blank.addActionListener(p);
+    c.add(blank);
+    createALetterButtons.add(blank);
     return c;
   }
 
@@ -134,4 +140,11 @@ class createALetterScreen extends gameState {
   }
   
   void setCurrentPlayer(Player p){this.pl = p;}
+  void clearCanvas(){
+    println("Interrupt");
+    for (int i = 0; i < canvas.pixels.length; i++) {
+      canvas.pixels[i] = palette[3];
+    }
+    canvas.updatePixels();
+  }
 }

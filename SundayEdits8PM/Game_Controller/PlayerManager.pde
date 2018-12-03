@@ -59,7 +59,7 @@ class PlayerManager {
     //  currentPlayer ="" + (char) (Integer.parseInt(currentPlayer) + 49);
     //}
   }
-
+  
   
   ArrayList<Player> exportPlayers(){
   return new ArrayList<Player>(players.values());
