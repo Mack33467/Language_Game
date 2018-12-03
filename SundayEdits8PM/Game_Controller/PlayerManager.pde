@@ -3,6 +3,7 @@ class PlayerManager {
   HashMap<String, Player> players; //The string is a numeric representatio of the player
   HashMap<String, ArrayList<ImageHolder>> allSymbols; // This is going to contain all the pictures associated with the letters of the alphabet
   String currentPlayer;
+  PImage lastImage;
   
   
   PlayerManager(){
@@ -36,7 +37,7 @@ class PlayerManager {
   * This method adds the current players last drawn letter to the global symbol data
   * Increments current player at the end, essentially switching turns
   */
-  void addPlayerDrawing(){
+  void addPlayerLetter(){
     Player currPlayer = players.get(currentPlayer);
     String letter = currPlayer.getLastLetterDrawn();
     
@@ -51,16 +52,21 @@ class PlayerManager {
       }
     }
     
-    //Incrementing the current player by one
-    if (Integer.parseInt(currentPlayer) == numPlayers){
-      currentPlayer = "1";
-    } else {
-      currentPlayer ="" + (char) (Integer.parseInt(currentPlayer) + 49);
-    }
+    ////Incrementing the current player by one
+    //if (Integer.parseInt(currentPlayer) == numPlayers){
+    //  currentPlayer = "1";
+    //} else {
+    //  currentPlayer ="" + (char) (Integer.parseInt(currentPlayer) + 49);
+    //}
   }
+
   
   ArrayList<Player> exportPlayers(){
   return new ArrayList<Player>(players.values());
+  }
+  
+  Player getCurrentPlayer(){
+    return players.get(currentPlayer);
   }
   
 }

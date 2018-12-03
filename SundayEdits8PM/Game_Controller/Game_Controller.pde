@@ -83,6 +83,9 @@ creditScreen credits;
 gameState currentScreen;
 String nextGameState;
 Boolean waitForExterior;
+
+//Player Manager ToDO Set Up PlayerManager
+PlayerManager manager;
 void setup(){
   //Setting up size and GUI
   size(displayWidth, displayHeight);
@@ -202,7 +205,8 @@ void setUpButtons(String p) {
       c.add(viewSymbols);
       break;
     case "CAL":
-      c = currentScreen.setUpButtons(c);
+      currentScreen.setCurrentPlayer(manager.getCurrentPlayer());
+      c = currentScreen.setUpButtons(c, this);
       removeButtons(c, currentScreen);
     }
      currentScreen.setButtonsNeedOff();

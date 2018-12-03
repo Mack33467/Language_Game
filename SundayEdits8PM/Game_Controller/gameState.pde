@@ -12,6 +12,7 @@ abstract class gameState {
   */
   String display(GUIController c){return "";}
   GUIController setUpButtons(GUIController c){return c;}
+  GUIController setUpButtons(GUIController c, PApplet p){return c;}
   GUIController clearScreen(GUIController c){return c;}
   
   Boolean needsButtons(){ return false;}
@@ -22,4 +23,6 @@ abstract class gameState {
   
   void setOpCode(int opCode){};
   int getOpCode(){return opCode;}
+  
+  void setCurrentPlayer(Player p){};
 }
