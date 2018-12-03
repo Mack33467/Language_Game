@@ -8,17 +8,6 @@ class welcomeScreen extends gameState {
   final int CREDITS_TXT_X = displayWidth/2 + 100;
   final int ALLOPT_TXT_Y = 375;
   
-  //---Radio Controller and Buttons (Player selects letter of alphabet)
-  IFRadioController rc;
-  
-  IFRadioButton rA, rB, rC, rD, rE, rF, rG, rH, rI, rJ, rK, rL, rM, rN, rO, rP, 
-    rQ, rR, rS, rT, rU, rV, rW, rX, rY, rZ;
-  
-  IFRadioButton[] letters = {
-    rA, rB, rC, rD, rE, rF, rG, rH, rI, rJ, rK, rL, rM, rN, rO, rP, 
-    rQ, rR, rS, rT, rU, rV, rW, rX, rY, rZ
-  };
-  
   welcomeScreen(paletteControls p){
     palette = p.palette;
   }
