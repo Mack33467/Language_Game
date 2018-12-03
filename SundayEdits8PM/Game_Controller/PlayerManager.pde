@@ -1,6 +1,6 @@
 class PlayerManager {
   int numPlayers;
-  HashMap<String, Player> players; //The string is a numeric representatio of the player
+  HashMap<String, Player> players; //The string is a numeric representation of the player
   HashMap<String, ArrayList<ImageHolder>> allSymbols; // This is going to contain all the pictures associated with the letters of the alphabet
   String currentPlayer;
   
