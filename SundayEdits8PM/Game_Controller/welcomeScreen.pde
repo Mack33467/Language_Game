@@ -2,22 +2,11 @@ class welcomeScreen extends gameState {
   PImage pageBg; // Background image for welcome, instructions, and credits pages
   String page = "welcome";
   int[] palette;
-  
-  final int INSTR_TXT_X = displayWidth/2 - 200;
-  final int PLAY_TXT_X = displayWidth/2;
-  final int CREDITS_TXT_X = displayWidth/2 + 100;
-  final int ALLOPT_TXT_Y = 375;
-  
-  //---Radio Controller and Buttons (Player selects letter of alphabet)
-  IFRadioController rc;
-  
-  IFRadioButton rA, rB, rC, rD, rE, rF, rG, rH, rI, rJ, rK, rL, rM, rN, rO, rP, 
-    rQ, rR, rS, rT, rU, rV, rW, rX, rY, rZ;
-  
-  IFRadioButton[] letters = {
-    rA, rB, rC, rD, rE, rF, rG, rH, rI, rJ, rK, rL, rM, rN, rO, rP, 
-    rQ, rR, rS, rT, rU, rV, rW, rX, rY, rZ
-  };
+ 
+  final int INSTR_TXT_X = int(width*0.37 - textWidth("Instructions")/2);    // = displayWidth/2 - 200;
+  final int PLAY_TXT_X = int(width*0.5 - textWidth("Play")/2);             // = displayWidth/2;
+  final int CREDITS_TXT_X = int(width*0.6 - textWidth("Credits")/2);       // = displayWidth/2 + 100;
+  final int ALLOPT_TXT_Y = height/7*3;                                     // = 375;
   
   welcomeScreen(paletteControls p){
     palette = p.palette;
@@ -64,10 +53,10 @@ class welcomeScreen extends gameState {
       image(pageBg, 0, 0, displayWidth, displayHeight);
       textSize(60);
       fill(palette[2]);
-      text("Secret Language", displayWidth/2 - 170, displayHeight/2 - 100);
+      text("Secret Language", width/2 - textWidth("Secret Language")/2, height/6*2);  // displayWidth/2 - 170, displayHeight/2 - 100);
       fill(palette[1]);
       // TODO: load in font?
-      text("Secret Language", displayWidth/2 - 170, displayHeight/2 - 100);
+      text("Secret Language", width/2 - textWidth("Secret Language")/2, height/6*2);  // displayWidth/2 - 170, displayHeight/2 - 100);
       textSize(30);
       fill(palette[2]);
       text("Instructions", INSTR_TXT_X, ALLOPT_TXT_Y); 
@@ -77,5 +66,4 @@ class welcomeScreen extends gameState {
       return page;
     }
   }
-  
 }
