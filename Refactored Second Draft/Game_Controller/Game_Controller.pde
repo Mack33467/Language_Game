@@ -51,7 +51,7 @@ class paletteControls {
   void setupLetterSelectionLAF(Object o) {
   letterSelectionLAF = new IFLookAndFeel((PApplet) o, IFLookAndFeel.DEFAULT);
   letterSelectionLAF.baseColor = palette[0];
-  letterSelectionLAF.textColor = 255;
+  letterSelectionLAF.textColor = palette[2];
   }
 }
 
