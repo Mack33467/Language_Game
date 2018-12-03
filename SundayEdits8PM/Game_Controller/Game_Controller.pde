@@ -153,11 +153,11 @@ void draw() {
 * A screen to sets the next screen before unpausing draw
 */
 void setNextScreen(String s){
-  println("inside set next Screen");
+  //println("inside set next Screen");
   nextGameState = s;
   currentScreen = screens.get(nextGameState);
   waitForExterior = false;
-  println("Next screen: " + nextGameState);
+  //println("Next screen: " + nextGameState);
 }
 
 /**
@@ -165,7 +165,7 @@ void setNextScreen(String s){
 * statement, but I haven't retyped that out yet
 */
 void removeButtons(GUIController c, gameState g) {
-  println("Inside removeButtons");
+  //println("Inside removeButtons");
   g.drawn = false;
   if (returnToWelcome != null) {
     c.remove(returnToWelcome);
@@ -180,7 +180,7 @@ void removeButtons(GUIController c, gameState g) {
   }
   
   if (g.page == "CAL") {
-    println("removing CAL buttons");
+    //println("removing CAL buttons");
     int i = 0;
     for(IFButton b: createALetterButtons){
       println("Deleting button number: " + i);
@@ -199,8 +199,8 @@ void removeButtons(GUIController c, gameState g) {
 * we will simply go with this.
 */
 void setUpButtons(String p) {
-  println("Inside setUpButtons");
-  println(p);
+  //println("Inside setUpButtons");
+  //println(p);
   switch(p) {
     case "INSTR" :
       waitForExterior = true;
@@ -249,9 +249,9 @@ void setUpButtons(String p) {
 * before we set up that next screen. Could be a bit more optimized, but it's ok for now
 */
 void actionPerformed (GUIEvent e) {
-  println("Inside actionPerformed");
+  //println("Inside actionPerformed");
   // If the return button is pressed on the Instructions and Credits page, the user0 will return to the Welcome Page, currently included on the Play page for debugging
-  println(e.getSource());
+  //println(e.getSource());
   if (e.getSource() == returnToWelcome) {
       removeButtons(c, currentScreen);
       setNextScreen("welcome");
@@ -259,8 +259,8 @@ void actionPerformed (GUIEvent e) {
 
   // If add symbol button is pressed
   if (e.getSource() == createSymbol) {
-    println("Inside createSymbol");
-    println(letterCreation.page);
+    //println("Inside createSymbol");
+    //println(letterCreation.page);
     cursor(ARROW);
     waitForExterior = true;
     removeButtons(c, currentScreen);
@@ -279,7 +279,7 @@ void actionPerformed (GUIEvent e) {
    while(createALetterButtons.get(i) != e.getSource()){
      i++;
    }
-   println("This is i: " + i);
+   //println("This is i: " + i);
    if (i == 0){
      waitForExterior = true;
      removeButtons(c, currentScreen);
@@ -289,7 +289,7 @@ void actionPerformed (GUIEvent e) {
      println(currLetter);
    } else if (i == 27) {
      println("Saved");
-     p_manager.getCurrentPlayer().submitDataSymbol(currLetter, letterCreation.canvas); //If pmanager isn't instatiated this will stop your code from running when you click finished drawing
+     //p_manager.getCurrentPlayer().submitDataSymbol(currLetter, letterCreation.canvas); //If pmanager isn't instatiated this will stop your code from running when you click finished drawing
      letterCreation.clearCanvas();
      setNextScreen("CAL");
    }
