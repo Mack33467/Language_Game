@@ -1,28 +1,32 @@
 import jto.colorscheme.*;
 
 public class AlphaSquare {
+  int[] alphaPalette = {#3E1973, // Darkest Colored AlphaSquare
+                        #5F0073, // Second-Darkest Colored AlphaSquare
+                        #B31FFF,  // Lightest Colored AlphaSquare
+                        255 // No Color
+                        };
+                        
   boolean filled;
-  // rgb values
-  int rValue;
-  int gValue;
-  int bValue;
-  // or use the jto colorscheme library
-  Color asColor;
+  int apIndex; // alphaPalette index
   
-  AlphaSquare() {
+  
+  public AlphaSquare() {
     this.filled = false;
-    //this.asColor = new Color();
-    //this.asColor.setRgb(255);
+    this.apIndex = 3;
   }
   
   AlphaSquare(boolean filled) {
     this.filled = filled;
+    
   }
   /**
     Colors in the AlphaSquare based on whether its associated letter has been updated
   */
   void colorIn() {
-    this.rValue++;
-    // or
+    if (this.apIndex > 0)
+      apIndex--;
+    int curColor = alphaPalette[apIndex];
+    // Fill in AlphaSquare with curColor
   }
 }
